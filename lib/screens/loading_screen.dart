@@ -1,4 +1,6 @@
 import 'package:clima/services/location.dart';
+import 'package:clima/services/networking.dart';
+import 'package:clima/utilities/constants.dart';
 import 'package:flutter/material.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -18,6 +20,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
     await location.getCurrentLocation();
     print(location.latitude);
     print(location.longitude);
+
+    var networkService = new NetworkHelper(
+        'https://api.openweathermap.org/data/2.5/onecall?lat=${location.latitude}&lon=${location.longitude}&appid=$kApiKey');
+
+    var weatherData = await networkService.getData();
   }
 
   @override
